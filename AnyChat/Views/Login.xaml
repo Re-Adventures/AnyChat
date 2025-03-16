@@ -13,7 +13,8 @@
         AllowsTransparency="True"
         Style="{StaticResource MaterialDesignWindow}"
         Background="{x:Null}"
-        Title="MainWindow" Height="500" Width="350">
+        Title="MainWindow" Height="500" Width="350"
+        MouseDown="Window_MouseDown">
     <md:Card UniformCornerRadius="20">
         <md:Card.DataContext>
             <vm:LoginViewModel />
@@ -51,6 +52,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -59,14 +62,23 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0"
+                           Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="Purple"
+                           FontSize="32px"
+                           Margin="0,20"
+                           Content="Login"/>
+
+                    <Label Grid.Row="1"
                            Grid.Column="0"
                            Content="Username"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Right"
                            FontSize="20"/>
 
-                    <TextBox Grid.Column="1"
-                             Grid.Row="0"
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
                              Height="Auto"
                              Padding="5"
                              FontSize="20"
@@ -74,15 +86,15 @@
                              Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              Margin="10"/>
 
-                    <Label Grid.Row="1"
+                    <Label Grid.Row="2"
                            Grid.Column="0"
                            Content="Password"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Right"
                            FontSize="20"/>
 
-                    <TextBox Grid.Column="1"
-                             Grid.Row="1"
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
                              Height="Auto"
                              Padding="5"
                              FontSize="20"
@@ -95,9 +107,17 @@
                             VerticalAlignment="Top"
                             md:ButtonAssist.CornerRadius="5"
                             FontSize="18"
-                            Margin="5,25,5,0"
+                            Margin="5,35,5,0"
                             Content="Login"
                             Command="{Binding LoginButtonCommand}" />
+
+                    <TextBlock Grid.Row="4"
+                               Grid.ColumnSpan="2"
+                               HorizontalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="18"
+                               Foreground="DarkRed"
+                               Text="{Binding ErrorMessage}" />
 
                 </Grid>
             </Grid>

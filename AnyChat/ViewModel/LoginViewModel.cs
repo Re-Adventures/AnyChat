@@ -6,45 +6,64 @@ namespace AnyChat.ViewModel;
 
 class LoginViewModel : INotifyPropertyChanged
 {
-	private string username;
-	public string Username
-	{
-		get { return username; }
-		set
-		{
-			username = value;
-			OnChange(nameof(Username));
-		}
-	}
+    private string username;
+    public string Username
+    {
+        get { return username; }
+        set
+        {
+            username = value;
+            OnChange(nameof(Username));
+        }
+    }
 
-	private string password;
-	public string Password
-	{
-		get { return password; }
-		set
-		{
-			password = value;
-			OnChange(nameof(Password));
-		}
-	}
+    private string password;
+    public string Password
+    {
+        get { return password; }
+        set
+        {
+            password = value;
+            OnChange(nameof(Password));
+        }
+    }
 
-	public event PropertyChangedEventHandler? PropertyChanged;
+    private string? errorMessage;
+    public string? ErrorMessage
+    {
+        get
+        {
+            return errorMessage;
+        }
+        set
+        {
+            errorMessage = value;
+            OnChange(nameof(ErrorMessage));
+        }
+    }
 
-	public LoginButtonCommand LoginButtonCommand { get; set; }
-	public readonly ApplicationDbContext context;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-	public LoginViewModel()
-	{
-		username = "";
-		password = "";
+    public LoginButtonCommand LoginButtonCommand { get; set; }
+    public readonly ApplicationDbContext context;
 
-		LoginButtonCommand = new LoginButtonCommand(this);
-		context = new ApplicationDbContext();
-	}
+    public LoginViewModel()
+    {
+        username = "";
+        password = "";
 
-	public void OnChange(string propertyName)
-	{
-		PropertyChanged?
-			.Invoke(this, new PropertyChangedEventArgs(propertyName));
-	}
+        LoginButtonCommand = new LoginButtonCommand(this);
+        context = new ApplicationDbContext();
+
+        if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+        {
+            errorMessage = "This is some sample error message";
+        }
+    }
+
+    public void OnChange(string propertyName)
+    {
+        PropertyChanged?
+            .Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

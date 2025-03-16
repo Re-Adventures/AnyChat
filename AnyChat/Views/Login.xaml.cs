@@ -24,16 +24,31 @@ namespace AnyChat.Views
             InitializeComponent();
         }
 
-		private void CloseButtonClick(object sender, RoutedEventArgs e)
-		{
+        private void CloseButtonClick(object sender, RoutedEventArgs e)
+        {
             Application.Current.Shutdown();
         }
 
-		private void RegisterButtonClick(object sender, RoutedEventArgs e)
-		{
+        private void RegisterButtonClick(object sender, RoutedEventArgs e)
+        {
+            //var registerPage = new Register
+            //{
+            //	Owner = this,
+            //	WindowStartupLocation = WindowStartupLocation.CenterOwner
+            //};
+
             var registerPage = new Register();
             registerPage.Show();
             this.Close();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+
         }
     }
 }

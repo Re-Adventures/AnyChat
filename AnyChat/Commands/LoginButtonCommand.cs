@@ -29,9 +29,22 @@ class LoginButtonCommand : ICommand
             && string.IsNullOrWhiteSpace(viewModel.Password) == false;
     }
 
-    public void Execute(object? parameter)
+    public async void Execute(object? parameter)
     {
-        //viewModel.context.Users.FirstOrDefault()
-        MessageBox.Show("Button Clicked");
+        // Checking if the user's credentials are correct
+        var userInDb = viewModel.context.Users
+            .FirstOrDefault(user => user.Name == viewModel.Username
+                && user.Password == viewModel.Password);
+
+        if (userInDb == null)
+        {
+            viewModel.ErrorMessage = "Invalid username or password!";
+            return;
+        }
+
+        userInDb.IsOnline = true;
+        userInDb.LastLogin = DateTime.Now;
+
+        await viewModel.context.SaveChangesAsync();
     }
 }
