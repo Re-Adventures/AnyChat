@@ -31,6 +31,8 @@ class LoginButtonCommand : ICommand
 
     public async void Execute(object? parameter)
     {
+        viewModel.ErrorMessage = "Loggin in please wait";
+
         // Checking if the user's credentials are correct
         var userInDb = viewModel.context.Users
             .FirstOrDefault(user => user.Name == viewModel.Username
@@ -46,5 +48,9 @@ class LoginButtonCommand : ICommand
         userInDb.LastLogin = DateTime.Now;
 
         await viewModel.context.SaveChangesAsync();
+
+        viewModel.ErrorMessage = "Login Successful";
+
+        // TODO: Show the Chat window
     }
 }

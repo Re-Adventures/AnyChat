@@ -12,6 +12,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Style="{StaticResource MaterialDesignWindow}"
+        ResizeMode="CanResizeWithGrip"
         Background="{x:Null}"
         Title="MainWindow" Height="500" Width="350"
         MouseDown="Window_MouseDown">
@@ -83,6 +84,7 @@
                              Padding="5"
                              FontSize="20"
                              md:HintAssist.Hint="Enter username"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              Margin="10"/>
 
